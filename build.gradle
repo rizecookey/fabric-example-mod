@@ -10,6 +10,14 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+// Repo for CT intermediary mappings
+repositories {
+	maven {
+		name "CombatReforged"
+		url "http://maven.combatreforged.com"
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -17,10 +25,18 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	// modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+}
+
+// Custom Manifest and Intermediary mappings declaration
+minecraft {
+	customManifest = "https://gist.githubusercontent.com/rizecookey/4c6142baaccc3875f9b227fe22f2ace5/raw/c8ed74b19f7a5315813c9d4b199798b692a8f359/1.16_combat-6.json"
+	intermediaryUrl = { mcVersion ->
+		return "http://maven.combatreforged.com/net/fabricmc/intermediary/${mcVersion}/intermediary-${mcVersion}-v2.jar";
+	}
 }
 
 processResources {
