@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -14,7 +14,7 @@ group = project.maven_group
 repositories {
 	maven {
 		name "CombatReforged"
-		url "https://maven.combatreforged.com"
+		url "https://maven.rizecookey.net"
 	}
 }
 
@@ -29,11 +29,9 @@ dependencies {
 }
 
 // Custom Manifest and Intermediary mappings declaration
-minecraft {
-	customManifest = "https://gist.githubusercontent.com/rizecookey/4c6142baaccc3875f9b227fe22f2ace5/raw/c8ed74b19f7a5315813c9d4b199798b692a8f359/1.16_combat-6.json"
-	intermediaryUrl = { mcVersion ->
-		return "https://maven.combatreforged.com/net/fabricmc/intermediary/${mcVersion}/intermediary-${mcVersion}-v2.jar";
-	}
+loom {
+	setCustomMinecraftManifest("https://gist.githubusercontent.com/rizecookey/4c6142baaccc3875f9b227fe22f2ace5/raw/c8ed74b19f7a5315813c9d4b199798b692a8f359/1.16_combat-6.json")
+	setIntermediaryUrl("https://maven.rizecookey.net/net/fabricmc/intermediary/${project.minecraft_version}/intermediary-${project.minecraft_version}-v2.jar")
 }
 
 processResources {
